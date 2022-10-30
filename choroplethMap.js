@@ -44,8 +44,10 @@ function initChart(canvasElement) {
   path = d3.geoPath();
   projection = d3
     .geoEqualEarth()
-    .scale(250)
-    .center([0, 0])
+    //更改世界地图的旋转角度、放大倍数以及中心位置，讲中国放在中间，且大小合适
+    .scale(1000)
+    .rotate([-90, 0]) 
+    .center([20, 32]) 
     .translate([WIDTH / 2, HEIGHT / 2]);
 
   // scale
