@@ -98,10 +98,10 @@ Promise.all(dataPromises).then(function (data) {
   const playButton = d3.select("#play-button");
   playButton.on("click", function () {
     const button = d3.select(this);
-    if (button.text() == "Pause") {
+    if (button.text() == "暂停") {
       moving = false;
       interval.stop();
-      button.text("Play");
+      button.text("播放");
     } else {
       moving = true;
       interval = d3.interval(() => {
@@ -109,7 +109,7 @@ Promise.all(dataPromises).then(function (data) {
         slider.value = year;
         updateCharts();
       }, 400);
-      button.text("Pause");
+      button.text("暂停");
     }
   });
   // Add month names to months drop down menu
