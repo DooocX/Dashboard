@@ -23,8 +23,9 @@ function initChart(canvasElement) {
     .select(canvasElement)
     .append("svg")
     .attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT)
-    .attr("height", HEIGHT + MARGIN.TOP + MARGIN.BOTTOM);
+    .attr("height", HEIGHT + MARGIN.TOP + MARGIN.BOTTOM );
 
+  //下图中间那张表格
   g = svg
     .append("g")
     .attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`);

@@ -97,7 +97,7 @@ Promise.all(dataPromises).then(function (data) {
   // document.getElementById('month-list').addEventListener();
   const playButton = d3.select("#play-button");
   playButton.on("click", function () {
-    const button = d3.select(this);
+    const button = d3.select(this);//.attr("transform", "translate(0,200)");
     if (button.text() == "暂停") {
       moving = false;
       interval.stop();
