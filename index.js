@@ -18,8 +18,8 @@ const monthNames = [
   "December",
 ];
 
-const firstYear = 1901;
-const lastYear = 2020;
+const firstYear = 2013;
+const lastYear = 2017;
 let country = "RUS";
 let year = firstYear;
 let month = 0;
@@ -52,7 +52,7 @@ Promise.all(dataPromises).then(function (data) {
   const tempData = d3.group(
     data[0],
     (d) => d.Year,
-    (d) => d.ISO3
+    (d) => d.code
   );
   const anomalyData = d3.group(
     data[1],
@@ -70,8 +70,17 @@ Promise.all(dataPromises).then(function (data) {
   updateCharts();
 
   let interval = d3.interval(() => {
-    year = year < lastYear ? year + 1 : firstYear;
+    //year = year < lastYear ? year + 1 : firstYear;
+    //月份和年份更迭
+    if(++month>11)
+    {
+      month=0;
+      year++;
+    }
+    if(year>lastYear)year=firstYear;
     slider.value = year;
+    
+    
     updateCharts();
   }, 400);
 

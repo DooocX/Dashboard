@@ -124,6 +124,7 @@ function initChart(canvasElement) {
 function updateChart(topo, data, month) {
   //这是一个动画 或者 渐变过程
   const trans = d3.transition().duration(100); // duration 表示这个过程要经历多久
+ 
   const currentYear = data.values().next().value[0].Year; // 此处是获取下一年
   title.text(`${monthNames[month]}, ${currentYear}`);
 
@@ -148,6 +149,7 @@ function updateChart(topo, data, month) {
       //d.total = data.get(d.properties["iso_b3"]);
       d.total = data.get(d.properties["filename"]);
 
+      if (++month==12)month=0;
       return d.total ? colorScale(d.total[month].Temperature) : 30;
     });
 
@@ -155,8 +157,7 @@ function updateChart(topo, data, month) {
   choroMap
     .on("pointermove", function (event, d) {  //鼠标移动
       hovered = true;
-      tipCountry = d.total ? d.total[0].ISO3 : null;
-      //tipCountry = d.total ? d.total[0].Code : null;
+      tipCountry = d.total ? d.total[0].code : null;
       tipData = tipCountry
         ? data.get(tipCountry)[month]
         //? data.get(tipCountry)[Year]
