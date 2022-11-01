@@ -45,7 +45,7 @@ function initChart(canvasElement) {
   projection = d3
     .geoEqualEarth()
     //更改世界地图的旋转角度、放大倍数以及中心位置，讲中国放在中间，且大小合适
-    .scale(1000)
+    .scale(900)
     .rotate([-90, 0]) 
     .center([20, 32]) 
     .translate([WIDTH / 2, HEIGHT / 2]);
@@ -60,7 +60,7 @@ function initChart(canvasElement) {
   colorScale = d3
     .scaleLinear()
     .domain([-30, 0, 35])
-    .range(["#FACC6Be", "#b4e498", "#78FAC0"]);
+    .range(["#BFB7AE", "#8C837B", "#40403F"]);
 
   // Legend
   // 此处为了生成图例，准备渐变色(linearGradient)
@@ -79,13 +79,13 @@ function initChart(canvasElement) {
   legend
     .append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#78FAC0")
+    .attr("stop-color", "#40403F")
     .attr("stop-opacity", 1);
 
   legend
     .append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", "#FACC6B")
+    .attr("stop-color", "#BFB7AE")
     .attr("stop-opacity", 1);
 
   const w = 110,
@@ -95,7 +95,7 @@ function initChart(canvasElement) {
   // 可以理解为 y = h - kx
   // 如果为range([0, h])
   // 则 y = kx
-  const y = d3.scaleLinear().domain([-30, 35]).range([h, 0]);
+  const y = d3.scaleLinear().domain([0, 35]).range([h, 0]);
   
   // append rect
   // 注意此处fill 是上边准备的渐变色
@@ -108,7 +108,7 @@ function initChart(canvasElement) {
   // 此处是一个 axis
   // axisRight表示 刻度朝右
   // tickFormat是刻度上的文字
-  var yAxis = d3.axisRight(y).tickFormat((d) => d + "℃");
+  var yAxis = d3.axisRight(y).tickFormat((d) => d + "μg/m³");
 
   // 此处append g
   // 相当于 班级管理 分成一个个group

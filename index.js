@@ -26,8 +26,8 @@ let month = 0;
 
 // Init slider variables
 const slider = document.getElementById("yearSlider");
-slider.min = firstYear;
-slider.max = lastYear;
+slider.min = 2013;
+slider.max = 2017;
 
 // Init charts
 areaChart.initChart("#areaChart");
