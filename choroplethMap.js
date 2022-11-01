@@ -59,8 +59,8 @@ function initChart(canvasElement) {
   // [0, 35]  y=k2x
   colorScale = d3
     .scaleLinear()
-    .domain([-30, 0, 35])
-    .range(["#BFB7AE", "#8C837B", "#40403F"]);
+    .domain([ 0,35,75,115,250, 300])
+    .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
 
   // Legend
   // 此处为了生成图例，准备渐变色(linearGradient)
@@ -76,16 +76,45 @@ function initChart(canvasElement) {
     .attr("spreadMethod", "pad");
 
   // stop可以理解为分段函数的间断点
-  legend
+  
+    legend
     .append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#40403F")
+    .attr("stop-color", "#B53838")
     .attr("stop-opacity", 1);
 
+    legend
+    .append("stop")
+    .attr("offset", "16.7%")
+    .attr("stop-color", "#D75454")
+    .attr("stop-opacity", 1);
+
+ 
+    legend
+    .append("stop")
+    .attr("offset", "61.7%")
+    .attr("stop-color", "#ECEB73")
+    .attr("stop-opacity", 1);
+
+    legend
+    .append("stop")
+    .attr("offset", "75%")
+    .attr("stop-color", "#FDFD72")
+    .attr("stop-opacity", 1);
+
+ 
+ 
+    legend
+    .append("stop")
+    .attr("offset", "88.3%")
+    .attr("stop-color", "#96B971")
+    .attr("stop-opacity", 1);
+
+ 
   legend
     .append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", "#BFB7AE")
+    .attr("stop-color", "#5F9879")
     .attr("stop-opacity", 1);
 
   const w = 110,
@@ -95,7 +124,7 @@ function initChart(canvasElement) {
   // 可以理解为 y = h - kx
   // 如果为range([0, h])
   // 则 y = kx
-  const y = d3.scaleLinear().domain([0, 35]).range([h, 0]);
+  const y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
   
   // append rect
   // 注意此处fill 是上边准备的渐变色
@@ -150,7 +179,7 @@ function updateChart(topo, data, month) {
       d.total = data.get(d.properties["filename"]);
 
       if (++month==12)month=0;
-      return d.total ? colorScale(d.total[month].Temperature) : 30;
+      return d.total ? colorScale(d.total[month].Temperature) : 300;
     });
 
   // Interactivity

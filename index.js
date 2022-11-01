@@ -18,16 +18,19 @@ const monthNames = [
   "December",
 ];
 
+let cur_specy = "CO3";
 const firstYear = 2013;
-const lastYear = 2017;
+const lastYear = 2014;
 let country = "RUS";
 let year = firstYear;
 let month = 0;
 
+const species = ["PM2.5","PM10","SO2","NO2","CO","O3"];
+
 // Init slider variables
 const slider = document.getElementById("yearSlider");
 slider.min = 2013;
-slider.max = 2017;
+slider.max = 2014;
 
 // Init charts
 areaChart.initChart("#areaChart");
@@ -36,18 +39,24 @@ anomalyRadial.initChart("#anomalyRadial");
 choroplethMap.initChart("#choroplethMap");
 
 // Datasets to load
-const dataPromises = [
-  //d3.csv("data/temp-1901-2020-all.csv"),
-  d3.csv("data/PM-1901-2020-all.csv"),
-  d3.csv("data/HadCRUT4.csv"),
-  //d3.json("data/world.geo.json"),
-  d3.json("data/china.geo.json"),//数据改用"data/china.geo.json"中国省份地图数据
-  //d3.json("data/china.json"),
-];
 
+  const dataPromises = [
+    //d3.csv("data/temp-1901-2020-all.csv"),
+    //d3.csv("data/PM-1901-2020-all.csv"),
+    d3.csv("data/PM1.csv"),
+    d3.csv("data/HadCRUT4.csv"),
+    //d3.json("data/world.geo.json"),
+    d3.json("data/china.geo.json"),//数据改用"data/china.geo.json"中国省份地图数据
+    //d3.json("data/china.json"),
+    d3.csv("data/species.csv"),
+  ];
+  
+restart:
 // Load datasets and start visualization
 Promise.all(dataPromises).then(function (data) {
   const topoData = data[2];
+
+
   // Group data per country and per year
   const tempData = d3.group(
     data[0],
@@ -166,8 +175,20 @@ Promise.all(dataPromises).then(function (data) {
     })
   );
 
-   
-
-
+let i=0;
+ // 点击事件
+ for (let iso of species) {
+  document.getElementById(
+    "species-list"
+  ).innerHTML += `<li><a class="dropdown-item" value= ${species[i]}>${species[i++]}</a></li>`;
+}
+document.querySelectorAll("#species-list li").forEach((item) =>
+    item.addEventListener("click", (event) => {
+      cur_specy = event.target.getAttribute("value");
+      window.alert(cur_specy);
+      
+      updateCharts();
+    })
+  );
 
 });
