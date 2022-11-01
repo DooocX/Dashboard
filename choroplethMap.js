@@ -60,7 +60,7 @@ function initChart(canvasElement) {
   colorScale = d3
     .scaleLinear()
     .domain([-30, 0, 35])
-    .range(["#1788de", "#3C81B7", "#dc2f02"]);
+    .range(["#FACC6Be", "#b4e498", "#78FAC0"]);
 
   // Legend
   // 此处为了生成图例，准备渐变色(linearGradient)
@@ -79,13 +79,13 @@ function initChart(canvasElement) {
   legend
     .append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#dc2f02")
+    .attr("stop-color", "#78FAC0")
     .attr("stop-opacity", 1);
 
   legend
     .append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", "#3C81B7")
+    .attr("stop-color", "#FACC6B")
     .attr("stop-opacity", 1);
 
   const w = 110,
@@ -145,7 +145,8 @@ function updateChart(topo, data, month) {
     .attr("d", path.projection(projection))
     // set the color of each country
     .attr("fill", function (d) {
-      d.total = data.get(d.properties["iso_a3"]);
+      //d.total = data.get(d.properties["iso_b3"]);
+      d.total = data.get(d.properties["filename"]);
 
       return d.total ? colorScale(d.total[month].Temperature) : 30;
     });
@@ -155,10 +156,13 @@ function updateChart(topo, data, month) {
     .on("pointermove", function (event, d) {  //鼠标移动
       hovered = true;
       tipCountry = d.total ? d.total[0].ISO3 : null;
+      //tipCountry = d.total ? d.total[0].Code : null;
       tipData = tipCountry
         ? data.get(tipCountry)[month]
+        //? data.get(tipCountry)[Year]
         : {Country: "No available data", Temperature: ""};
-      tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "℃");
+      tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
+      //tooltip.html(tipData.name + "<br/>" + tipData.haha + "℃");
       tooltip
         .style("left", event.pageX + 10 + "px")
         .style("top", event.pageY - 28 + "px")
@@ -187,7 +191,7 @@ function updateChart(topo, data, month) {
     tipData = tipCountry
       ? data.get(tipCountry)[month]
       : {Country: "No available data", Temperature: ""};
-    tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "℃");
+    tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
   }
 }
 

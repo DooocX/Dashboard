@@ -37,7 +37,8 @@ choroplethMap.initChart("#choroplethMap");
 
 // Datasets to load
 const dataPromises = [
-  d3.csv("data/temp-1901-2020-all.csv"),
+  //d3.csv("data/temp-1901-2020-all.csv"),
+  d3.csv("data/PM-1901-2020-all.csv"),
   d3.csv("data/HadCRUT4.csv"),
   //d3.json("data/world.geo.json"),
   d3.json("data/china.geo.json"),//数据改用"data/china.geo.json"中国省份地图数据
