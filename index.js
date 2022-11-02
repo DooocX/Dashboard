@@ -105,7 +105,12 @@ Promise.all(dataPromises).then(function (data) {
   slider.addEventListener("pointerup", (event) => {
     if (moving) {
       interval = d3.interval(() => {
-        year = year < lastYear ? year + 1 : firstYear;
+        if(++month>11)
+        {
+          month=0;
+          year++;
+        }
+    if(year>lastYear)year=firstYear;
         slider.value = year;
         updateCharts();
       }, 400);
