@@ -4,7 +4,7 @@
 const WIDTH = 1400;
 const HEIGHT = 800;
 
-let svg, g, path, projection, colorScale, title, tooltip, tipCountry, tipData;
+let svg, g, path, projection, colorScale, speciestitle, title, tooltip, tipCountry, tipData;
 let hovered = false;
 const monthNames = [
   "January",
@@ -37,6 +37,14 @@ function initChart(canvasElement) {
     .attr("class", "x-label")
     .attr("x", WIDTH / 2)
     .attr("y", HEIGHT - 100)
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle");
+
+    speciestitle = g
+    .append("text")
+    .attr("class", "x-label")
+    .attr("x", WIDTH / 2)
+    .attr("y", HEIGHT - 50)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
 
@@ -156,6 +164,7 @@ function updateChart(topo, data, month, cur_specy) {
  
   const currentYear = data.values().next().value[0].Year; // 此处是获取下一年
   title.text(`${monthNames[month]}, ${currentYear}`);
+  speciestitle.text(`${cur_specy}`);
 
   // Draw map
   // Join
