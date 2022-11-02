@@ -71,23 +71,32 @@ function initChart(canvasElement) {
   x = d3.scaleTime().range([0, WIDTH]); //时间比例尺
   y = d3.scaleLinear().range([HEIGHT, 0]);
   x.domain(d3.extent(dateRange)); // 值域范围 extent返回数组最小值和最大值 [min, max]
-  y.domain([-30, 35]);
+  //y.domain([-30, 35]);
+  y.domain([0, 300]);
 
   gradient = g
     .append("linearGradient")
     .attr("id", "temperature-gradient")
     .attr("gradientUnits", "userSpaceOnUse")
     .attr("x1", 0)
-    .attr("y1", y(-30))
+    //.attr("y1", y(-30))
+    .attr("y1", y(0))
     .attr("x2", 0)
-    .attr("y2", y(35));
+    //.attr("y2", y(35));
+    .attr("y2", y(300));
 
   gradient
     .selectAll("stop")
     .data([
-      {offset: "0%", color: "#1788de"},
-      {offset: "50%", color: "#3C81B7"},
-      {offset: "70%", color: "#CE241C"},
+      {offset: "0%", color: "#5f9879"},
+      {offset: "16.7%", color: "#96b971"},
+      {offset: "61.7%", color: "#fdfd72"},
+      {offset: "75%", color: "#eceb73"},
+      {offset: "88.3%", color: "#d75454"},
+      {offset: "100%", color: "#B53838"},
+      //{offset: "0%", color: "#1788de"},
+      //{offset: "50%", color: "#3C81B7"},
+      //{offset: "70%", color: "#CE241C"},
     ])
     .enter()
     .append("stop")
@@ -119,7 +128,8 @@ function updateChart(data) {
 
   xLabel.text(`${data[0].Country}, ${data[0].Year}`);
   // Add domains
-  y.domain([d3.min(data, (d) => Number(d.Temperature)) < 0 ? -30 : 0, 35]);
+  //y.domain([d3.min(data, (d) => Number(d.Temperature)) < 0 ? -30 : 0, 35]);
+  y.domain([0,300]);
 
   // Line and area generator
   let curve = d3.curveMonotoneX;

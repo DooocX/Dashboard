@@ -18,12 +18,13 @@ let svg,
   barWrapper,
   pathWrapper;
 
-let currYear = 1901;
+//let currYear = 1901;
+let currYear = 2013;
 
 // Domain data
 const domLow = -1.5, //-15, low end of data
   domHigh = 1.25, //30, high end of data
-  axisTicks = [-1, 0, 1]; //[-20,-10,0,10,20,30];  [-2,-1,0,1,2,3];  [-1.5,-0.5,0.5,1.5];
+  axisTicks = [0, 150, 300]; //[-20,-10,0,10,20,30];  [-2,-1,0,1,2,3];  [-1.5,-0.5,0.5,1.5];
 
 function initChart(canvasElement) {
   // Visualization canvas

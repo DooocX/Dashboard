@@ -51,7 +51,6 @@ choroplethMap.initChart("#choroplethMap");
     d3.csv("data/species.csv"),
   ];
   
-restart:
 // Load datasets and start visualization
 Promise.all(dataPromises).then(function (data) {
   const topoData = data[2];
