@@ -104,27 +104,25 @@
     </nav>
     <div id="outerContainer">
       <div class="centered-flex">
-        <div id="choroplethMap"></div>
+        <div class="centered-flex-row">
+          <div id="choroplethMap"></div>
+          <div class="centered-flex">
+          <div id="polarArea"></div>
+          <div id="areaChart"></div>
+        </div>
+        </div>
+        
         <input type="range" value="0" class="slider" id="yearSlider" />
         <button id="play-button" class="btn btn-outline-dark shadow-none">暂停</button>
       </div>
       <div id="chartContainer">
-        <div id="polarArea"></div>
-        <div id="areaChart"></div>
+        
+        
         <div id="anomalyRadial"></div>
       </div>
     </div>
     <div class="tooltip" style="opacity: 0"></div>
-
-
-    <body style="height: 100vh; margin: 0">
-      <div id="container" style="height: 50%;width: 50%;"></div>
-
   </body>
-
-
-
-
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
   <script
@@ -132,10 +130,5 @@
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
     crossorigin="anonymous"
   ></script>
-
-
-
-
-
   <script type="module" src="./index.js"></script>
 </html>
