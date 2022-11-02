@@ -179,12 +179,12 @@ function updateChart(topo, data, month, cur_specy) {
       d.total = data.get(d.properties["filename"]);
 
       if (++month==12)month=0;
-      if(cur_specy=="PM10"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
-      if(cur_specy=="SO2"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
-      if(cur_specy=="NO2"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
-      if(cur_specy=="CO"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
-      if(cur_specy=="O3"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
-      return d.total ? colorScale(d.total[month].Temperature) : 300;
+      if(cur_specy=="PM10"){ return d.total ? colorScale(d.total[month].PM10) : 250;}
+      if(cur_specy=="SO2"){ return d.total ? colorScale(d.total[month].SO2) : 110;}
+      if(cur_specy=="NO2"){ return d.total ? colorScale(d.total[month].NO2) : 80;}
+      if(cur_specy=="CO"){ return d.total ? colorScale(d.total[month].CO) : 4;}
+      if(cur_specy=="O3"){ return d.total ? colorScale(d.total[month].O3) : 120;}
+      return d.total ? colorScale(d.total[month].Temperature) : 200;
     });
 
   // Interactivity
@@ -226,6 +226,12 @@ function updateChart(topo, data, month, cur_specy) {
     tipData = tipCountry
       ? data.get(tipCountry)[month]
       : {Country: "No available data", Temperature: ""};
+      if(cur_specy=="PM10"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="SO2"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="NO2"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="CO"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="O3"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      return d.total ? colorScale(d.total[month].Temperature) : 300;
     tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
   }
 }

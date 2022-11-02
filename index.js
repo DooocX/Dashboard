@@ -20,8 +20,8 @@ const monthNames = [
 
 let cur_specy = "PM2.5";
 const firstYear = 2013;
-const lastYear = 2014;
-let country = "RUS";
+const lastYear = 2016;
+let country = "110000";
 let year = firstYear;
 let month = 0;
 
@@ -30,7 +30,7 @@ const species = ["PM2.5","PM10","SO2","NO2","CO","O3"];
 // Init slider variables
 const slider = document.getElementById("yearSlider");
 slider.min = 2013;
-slider.max = 2014;
+slider.max = 2016;
 
 // Init charts
 areaChart.initChart("#areaChart");
