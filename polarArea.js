@@ -153,7 +153,7 @@ function initChart(canvasElement) {
 function updateChart(data,cur_specy) {
   const trans = d3.transition().duration(400);
 
-  title.text(data[0].ISO3);
+  title.text(data[0].code);
 
   subtitle.text(data[0].Year);
 
