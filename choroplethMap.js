@@ -88,7 +88,9 @@ function initChart(canvasElement,cur_specy) {
     // 此处是一个 axis
     // axisRight表示 刻度朝右
     // tickFormat是刻度上的文字
-    var yAxis = d3.axisRight(y).tickFormat((d) => d + "μg/m³");
+    var yAxis = d3.axisRight(y)
+    .tickValues([35,75,115,210])
+    .tickFormat((d,i)=>["优秀","良好","轻微污染","严重污染"][i]);
   
      //此处append g
      //相当于 班级管理 分成一个个group
@@ -157,7 +159,7 @@ function initChart(canvasElement,cur_specy) {
 
 function updateChart(topo, data, month, cur_specy) {
   //这是一个动画 或者 渐变过程
-  const trans = d3.transition().duration(100); // duration 表示这个过程要经历多久
+  const trans = d3.transition().duration(200); // duration 表示这个过程要经历多久
  
   const currentYear = data.values().next().value[0].Year; // 此处是获取下一年
   title.text(`${monthNames[month]}, ${currentYear}`);
