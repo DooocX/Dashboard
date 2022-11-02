@@ -1,8 +1,8 @@
 // 下图 中间
 
 // Plot constants
-const MARGIN = {LEFT: 60, RIGHT: 60, TOP: 20, BOTTOM: 100};
-const WIDTH = 600 - MARGIN.LEFT - MARGIN.RIGHT;
+const MARGIN = {LEFT: 20, RIGHT: 20, TOP: 20, BOTTOM: 100};
+const WIDTH = 650 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 350 - MARGIN.TOP - MARGIN.BOTTOM;
 
 let svg,
@@ -22,20 +22,20 @@ function initChart(canvasElement) {
   svg = d3
     .select(canvasElement)
     .append("svg")
-    .attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT + 50)
+    .attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT - 100)
     .attr("height", HEIGHT + MARGIN.TOP + MARGIN.BOTTOM );
 
   //下图中间那张表格
   g = svg
     .append("g")
-    .attr("transform", `translate(${MARGIN.LEFT + 50}, ${MARGIN.TOP})`);
+    .attr("transform", `translate(${MARGIN.LEFT + 45}, ${MARGIN.TOP})`);
   g.append("path").attr("class", "plot");
 
   // Labels
   xLabel = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", WIDTH / 2)
+    .attr("x", WIDTH / 2 -50)
     .attr("y", HEIGHT + 70)
     .attr("font-size", "20px") // 字体大小
     .attr("text-anchor", "middle"); // 相关说明https://sg-info.cn/article/show/121
