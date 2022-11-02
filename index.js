@@ -18,7 +18,7 @@ const monthNames = [
   "December",
 ];
 
-let cur_specy = "CO3";
+let cur_specy = "PM2.5";
 const firstYear = 2013;
 const lastYear = 2014;
 let country = "RUS";
@@ -73,7 +73,7 @@ Promise.all(dataPromises).then(function (data) {
     polarArea.updateChart(countryData);
     areaChart.updateChart(countryData);
     anomalyRadial.updateChart(anomalyData, year);
-    choroplethMap.updateChart(topoData, yearData, month);
+    choroplethMap.updateChart(topoData, yearData, month, cur_specy);
   }
   updateCharts();
 
@@ -123,7 +123,13 @@ Promise.all(dataPromises).then(function (data) {
     } else {
       moving = true;
       interval = d3.interval(() => {
-        year = year < lastYear ? year + 1 : firstYear;
+        //year = year < lastYear ? year + 1 : firstYear;
+        if(++month>11)
+        {
+          month=0;
+          year++;
+        }
+    if(year>lastYear)year=firstYear;
         slider.value = year;
         updateCharts();
       }, 400);
@@ -184,7 +190,6 @@ let i=0;
 document.querySelectorAll("#species-list li").forEach((item) =>
     item.addEventListener("click", (event) => {
       cur_specy = event.target.getAttribute("value");
-      window.alert(cur_specy);
       
       updateCharts();
     })

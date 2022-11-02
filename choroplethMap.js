@@ -150,7 +150,7 @@ function initChart(canvasElement) {
   tooltip = d3.select(".tooltip");
 }
 
-function updateChart(topo, data, month) {
+function updateChart(topo, data, month, cur_specy) {
   //这是一个动画 或者 渐变过程
   const trans = d3.transition().duration(100); // duration 表示这个过程要经历多久
  
@@ -179,6 +179,11 @@ function updateChart(topo, data, month) {
       d.total = data.get(d.properties["filename"]);
 
       if (++month==12)month=0;
+      if(cur_specy=="PM10"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="SO2"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="NO2"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="CO"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
+      if(cur_specy=="O3"){ return d.total ? colorScale(d.total[month].CO3) : 300;}
       return d.total ? colorScale(d.total[month].Temperature) : 300;
     });
 
