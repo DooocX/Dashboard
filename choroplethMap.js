@@ -1,7 +1,7 @@
 //上图 地图
 
 // Plot constants
-const WIDTH = 1400;
+const WIDTH = 1000;
 const HEIGHT = 800;
 
 let svg, g, path, projection, colorScale, speciestitle, title, tooltip, tipCountry, tipData;
@@ -36,15 +36,15 @@ function initChart(canvasElement,cur_specy) {
   title = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", WIDTH / 2)
+    .attr("x", (WIDTH / 2) - 100)
     .attr("y", HEIGHT - 100)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
 
-    speciestitle = g
+  speciestitle = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", WIDTH / 2)
+    .attr("x", (WIDTH / 2) - 100)
     .attr("y", HEIGHT - 50)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
@@ -57,7 +57,7 @@ function initChart(canvasElement,cur_specy) {
     .scale(900)
     .rotate([-90, 0]) 
     .center([20, 32]) 
-    .translate([WIDTH / 2, HEIGHT / 2]);
+    .translate([(WIDTH / 2) + 100, HEIGHT / 2]);
 
   // scale
   // domain 定义域

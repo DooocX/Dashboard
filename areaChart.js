@@ -2,8 +2,8 @@
 
 // Plot constants
 const MARGIN = {LEFT: 100, RIGHT: 20, TOP: 20, BOTTOM: 100};
-const WIDTH = 700 - MARGIN.LEFT - MARGIN.RIGHT;
-const HEIGHT = 500 - MARGIN.TOP - MARGIN.BOTTOM;
+const WIDTH = 550 - MARGIN.LEFT - MARGIN.RIGHT;
+const HEIGHT = 350 - MARGIN.TOP - MARGIN.BOTTOM;
 
 let svg,
   g,
