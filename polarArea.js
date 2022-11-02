@@ -178,7 +178,7 @@ function updateChart(data,cur_specy) {
       hovMonth = monthNames.findIndex((month) => month == tipMonth);
       tipData =
         hovMonth != -1 ? data[hovMonth] : {Statistics: "", Temperature: ""};
-      tooltip.html(tipData.Statistics + "<br/>" + tipData.Temperature + "℃");
+      tooltip.html(tipData.Statistics + "<br/>" + (cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0)))))) + "μg/m³");
       tooltip
         .style("left", event.pageX + 10 + "px")
         .style("top", event.pageY - 28 + "px")
@@ -225,7 +225,7 @@ function updateChart(data,cur_specy) {
     hovMonth = monthNames.findIndex((month) => month == tipMonth);
     tipData =
       hovMonth != -1 ? data[hovMonth] : {Statistics: "", Temperature: ""};
-    tooltip.html(tipData.Statistics + "<br/>" + tipData.Temperature + "℃");
+    tooltip.html(tipData.Statistics + "<br/>" + (cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0)))))) + "μg/m³");
   }
 }
 
