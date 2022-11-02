@@ -71,32 +71,32 @@ function initChart(canvasElement) {
   x = d3.scaleTime().range([0, WIDTH]); //时间比例尺
   y = d3.scaleLinear().range([HEIGHT, 0]);
   x.domain(d3.extent(dateRange)); // 值域范围 extent返回数组最小值和最大值 [min, max]
-  //y.domain([-30, 35]);
-  y.domain([0, 300]);
+  y.domain([-30, 35]);
+  //y.domain([0, 300]);
 
   gradient = g
     .append("linearGradient")
     .attr("id", "temperature-gradient")
     .attr("gradientUnits", "userSpaceOnUse")
     .attr("x1", 0)
-    //.attr("y1", y(-30))
-    .attr("y1", y(0))
+    .attr("y1", y(-30))
+    //.attr("y1", y(0))
     .attr("x2", 0)
-    //.attr("y2", y(35));
-    .attr("y2", y(300));
+    .attr("y2", y(35));
+    //.attr("y2", y(300));
 
   gradient
     .selectAll("stop")
     .data([
-      {offset: "0%", color: "#5f9879"},
-      {offset: "11.7%", color: "#96b971"},
-      {offset: "25%", color: "#fdfd72"},
-      {offset: "38.3%", color: "#ECEB73"},
-      {offset: "75%", color: "#D75454"},
-      {offset: "100%", color: "#B53838"},
-      //{offset: "0%", color: "#1788de"},
-      //{offset: "50%", color: "#3C81B7"},
-      //{offset: "70%", color: "#CE241C"},
+      //{offset: "0%", color: "#5f9879"},
+      //{offset: "11.7%", color: "#96b971"},
+      //{offset: "25%", color: "#fdfd72"},
+      //{offset: "38.3%", color: "#ECEB73"},
+      //{offset: "75%", color: "#D75454"},
+      //{offset: "100%", color: "#B53838"},
+      {offset: "0%", color: "#1788de"},
+      {offset: "50%", color: "#3C81B7"},
+      {offset: "70%", color: "#CE241C"},
     ])
     .enter()
     .append("stop")
@@ -128,8 +128,8 @@ function updateChart(data, cur_specy) {
 
   xLabel.text(`${data[0].Country}, ${data[0].Year}`);
   // Add domains
-  //y.domain([d3.min(data, (d) => Number(d.Temperature)) < 0 ? -30 : 0, 35]);
-  y.domain([0,cur_specy=="PM2.5"? 300:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))]);
+  y.domain([d3.min(data, (d) => Number(d.Temperature-273)) < 0 ? -30 : 0, 35]);
+  //y.domain([0,cur_specy=="PM2.5"? 300:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))]);
 
   // Line and area generator
   let curve = d3.curveMonotoneX;
@@ -137,14 +137,14 @@ function updateChart(data, cur_specy) {
     .line()
     .curve(curve)
     .x((d) => x(timeParser(d.Statistics.slice(0, 3))))
-    .y((d) => y(d.Temperature));
+    .y((d) => y(d.Temperature-273));
 
   const area = d3
     .area()
     .curve(curve)
     .x((d) => x(timeParser(d.Statistics.slice(0, 3)))) //x
     .y0(y(0)) //下边
-    .y1((d) => y(cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0))))))); //上边
+    .y1((d) => y(d.Temperature-273)); //上边
 
   // Add y axis
   const yAxisCall = d3.axisLeft(y);
@@ -152,8 +152,8 @@ function updateChart(data, cur_specy) {
   .call(yAxisCall);
 
   gradient
-  .attr("y1", y(0))
-  .attr("y2", y(cur_specy=="PM2.5"? 300:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))));
+  .attr("y1", y(-30))
+  .attr("y2", y(35));
 
   const linePath = g.selectAll("path.plot").datum(data);
 

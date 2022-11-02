@@ -177,8 +177,8 @@ function updateChart(data,cur_specy) {
       tipMonth = d.Statistics.slice(0, 3);
       hovMonth = monthNames.findIndex((month) => month == tipMonth);
       tipData =
-        hovMonth != -1 ? data[hovMonth] : {Statistics: "", Temperature: ""};
-      tooltip.html(tipData.Statistics + "<br/>" + (cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0)))))) + "μg/m³");
+        hovMonth != -1 ? data[hovMonth] : {Statistics: "", PM2: ""};
+      tooltip.html(tipData.Statistics + "<br/>" + (cur_specy=="PM2.5"? d.PM2:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0)))))) + "μg/m³");
       tooltip
         .style("left", event.pageX + 10 + "px")
         .style("top", event.pageY - 28 + "px")
@@ -201,7 +201,7 @@ function updateChart(data,cur_specy) {
       tooltip.transition().duration(100).style("opacity", 0);
     })
     .transition(trans)
-    .attr("fill", (d) => colorScale(d.Temperature))
+    .attr("fill", (d) => colorScale(d.PM2))
     .attr("opacity", 1)
     .attr(
       "d",
@@ -209,7 +209,7 @@ function updateChart(data,cur_specy) {
         .arc() // imagine your doing a part of a donut plot
         .innerRadius(INNERRADIUS)   //内径
         .outerRadius(function (d) { //外径
-          return y(cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0))))));
+          return y(cur_specy=="PM2.5"? d.PM2:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0))))));
         })
         .startAngle(function (d) { //起始角度
           return x(d.Statistics.slice(0, 3));
@@ -224,8 +224,8 @@ function updateChart(data,cur_specy) {
   if (hovered) {
     hovMonth = monthNames.findIndex((month) => month == tipMonth);
     tipData =
-      hovMonth != -1 ? data[hovMonth] : {Statistics: "", Temperature: ""};
-    tooltip.html(tipData.Statistics + "<br/>" + (cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0)))))) + "μg/m³");
+      hovMonth != -1 ? data[hovMonth] : {Statistics: "", PM2: ""};
+    tooltip.html(tipData.Statistics + "<br/>" + (cur_specy=="PM2.5"? d.PM2:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0)))))) + "μg/m³");
   }
 }
 

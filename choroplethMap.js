@@ -233,7 +233,7 @@ function updateChart(topo, data, month, cur_specy) {
         .scaleLinear()
         .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
-      return d.total ? colorScale(d.total[month].Temperature) : 300;
+      return d.total ? colorScale(d.total[month].PM2) : 300;
     });
 
   // Interactivity
@@ -244,8 +244,8 @@ function updateChart(topo, data, month, cur_specy) {
       tipData = tipCountry
         ? data.get(tipCountry)[month]
         //? data.get(tipCountry)[Year]
-        : {Country: "No available data", Temperature: ""};
-      tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
+        : {Country: "No available data", PM2: ""};
+      tooltip.html(tipData.Country + "<br/>" + tipData.PM2 + "μg/m³");
       //tooltip.html(tipData.name + "<br/>" + tipData.haha + "℃");
       tooltip
         .style("left", event.pageX + 10 + "px")
@@ -274,10 +274,10 @@ function updateChart(topo, data, month, cur_specy) {
   if (hovered) {
     tipData = tipCountry
       ? data.get(tipCountry)[month]
-      : {Country: "No available data", Temperature: ""};
+      : {Country: "No available data", PM2: ""};
       if (++month==12)month=0;
       
-      tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
+      tooltip.html(tipData.Country + "<br/>" + tipData.PM2 + "μg/m³");
       if(cur_specy=="PM10"){
         let a=150.0/300;
         colorScale = d3
@@ -318,7 +318,7 @@ function updateChart(topo, data, month, cur_specy) {
         .scaleLinear()
         .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
-      return d.total ? colorScale(d.total[month].Temperature) : 300;
+      return d.total ? colorScale(d.total[month].PM2) : 300;
   }
 }
 
