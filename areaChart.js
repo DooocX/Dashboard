@@ -1,7 +1,7 @@
 // 下图 中间
 
 // Plot constants
-const MARGIN = {LEFT: 100, RIGHT: 20, TOP: 20, BOTTOM: 100};
+const MARGIN = {LEFT: 20, RIGHT: 20, TOP: 20, BOTTOM: 100};
 const WIDTH = 550 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 350 - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -35,8 +35,8 @@ function initChart(canvasElement) {
   xLabel = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", WIDTH / 2)
-    .attr("y", HEIGHT + 40)
+    .attr("x", WIDTH / 2 )
+    .attr("y", HEIGHT + 70)
     .attr("font-size", "20px") // 字体大小
     .attr("text-anchor", "middle"); // 相关说明https://sg-info.cn/article/show/121
 
@@ -44,7 +44,7 @@ function initChart(canvasElement) {
     .append("text")
     .attr("class", "y-label")
     .attr("x", -HEIGHT / 2)
-    .attr("y", -30)
+    .attr("y", -50)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle") //中间对齐
     .attr("transform", "rotate(-90)") // 旋转

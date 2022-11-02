@@ -48,7 +48,7 @@ function initChart(canvasElement) {
     .append("g")
     .attr(
       "transform",
-      "translate(" + WIDTH / 2 + "," + (HEIGHT / 2 + 20) + ")"
+      "translate(" + WIDTH / 2 + "," + (HEIGHT / 2 +20) + ")"
     );
 
   // Scales
