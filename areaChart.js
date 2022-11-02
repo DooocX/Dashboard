@@ -2,7 +2,7 @@
 
 // Plot constants
 const MARGIN = {LEFT: 20, RIGHT: 20, TOP: 20, BOTTOM: 100};
-const WIDTH = 550 - MARGIN.LEFT - MARGIN.RIGHT;
+const WIDTH = 650 - MARGIN.LEFT - MARGIN.RIGHT;
 const HEIGHT = 350 - MARGIN.TOP - MARGIN.BOTTOM;
 
 let svg,
@@ -22,13 +22,13 @@ function initChart(canvasElement) {
   svg = d3
     .select(canvasElement)
     .append("svg")
-    .attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT)
+    .attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT - 100)
     .attr("height", HEIGHT + MARGIN.TOP + MARGIN.BOTTOM );
 
   //下图中间那张表格
   g = svg
     .append("g")
-    .attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`);
+    .attr("transform", `translate(${MARGIN.LEFT + 45}, ${MARGIN.TOP})`);
   g.append("path").attr("class", "plot");
 
   // Labels
