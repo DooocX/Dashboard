@@ -78,7 +78,7 @@ function initChart(canvasElement) {
     .attr("stroke", "black")
     .attr("opacity", 0.2)
     .attr("r", y);
-
+/*
   yTicks
     .append("text")
     .attr("y", function (d) {
@@ -86,9 +86,9 @@ function initChart(canvasElement) {
     })
     .attr("dy", "0.35em")
     .text(function (d) {
-      return d + "℃";
+      return d + "μg/m³";
     });
-
+*/
   yAxisGroup
     .append("circle")
     .attr("fill", "none")
@@ -160,7 +160,7 @@ function updateChart(data,cur_specy) {
   const bars = g.selectAll("path").data(data);
 
   
-  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, cur_specy=="PM2.5"? 300:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))]);
+  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, cur_specy=="PM2.5"? 150:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))]);
 
   bars.exit().remove();
 
