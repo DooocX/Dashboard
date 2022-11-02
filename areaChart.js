@@ -88,16 +88,15 @@ function initChart(canvasElement) {
   gradient
     .selectAll("stop")
     .data([
-      //{offset: "0%", color: "#5f9879"},
-      //{offset: "11.7%", color: "#96b971"},
-      //{offset: "25%", color: "#fdfd72"},
-      //{offset: "38.3%", color: "#ECEB73"},
-
-      //{offset: "75%", color: "#D75454"},
-      //{offset: "100%", color: "#B53838"},
-      {offset: "0%", color: "#1788de"},
-      {offset: "50%", color: "#3C81B7"},
-      {offset: "70%", color: "#CE241C"},
+      {offset: "0%", color: "#5f9879"},
+      {offset: "11.7%", color: "#96b971"},
+      {offset: "25%", color: "#fdfd72"},
+      {offset: "38.3%", color: "#ECEB73"},
+      {offset: "75%", color: "#D75454"},
+      {offset: "100%", color: "#B53838"},
+      //{offset: "0%", color: "#1788de"},
+      //{offset: "50%", color: "#3C81B7"},
+      //{offset: "70%", color: "#CE241C"},
     ])
     .enter()
     .append("stop")
@@ -124,13 +123,13 @@ function initChart(canvasElement) {
   xAxisGroup.call(xAxisCall);
 }
 
-function updateChart(data) {
+function updateChart(data, cur_specy) {
   const trans = d3.transition().duration(400);
 
   xLabel.text(`${data[0].Country}, ${data[0].Year}`);
   // Add domains
   //y.domain([d3.min(data, (d) => Number(d.Temperature)) < 0 ? -30 : 0, 35]);
-  y.domain([0,300]);
+  y.domain([0,cur_specy=="PM2.5"? 300:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))]);
 
   // Line and area generator
   let curve = d3.curveMonotoneX;
@@ -149,9 +148,12 @@ function updateChart(data) {
 
   // Add y axis
   const yAxisCall = d3.axisLeft(y);
-  yAxisGroup.call(yAxisCall);
+  yAxisGroup
+  .call(yAxisCall);
 
-  gradient.attr("y1", y(0)).attr("y2", y(300));
+  gradient
+  .attr("y1", y(0))
+  .attr("y2", y(cur_specy=="PM2.5"? 300:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 200:(cur_specy=="CO"?10:(cur_specy=="O3"? 160:0)))))));
 
   const linePath = g.selectAll("path.plot").datum(data);
 

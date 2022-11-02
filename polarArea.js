@@ -57,7 +57,7 @@ function initChart(canvasElement) {
     .range([0, 2 * Math.PI])
     .align(0)
     .domain(monthNames);
-  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, 300]);
+  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, 150]);
 
   // Color scaleBand
   colorScale = d3
@@ -150,7 +150,7 @@ function initChart(canvasElement) {
   tooltip = d3.select(".tooltip");
 }
 
-function updateChart(data) {
+function updateChart(data,cur_specy) {
   const trans = d3.transition().duration(400);
 
   title.text(data[0].ISO3);

@@ -29,6 +29,7 @@ function initChart(canvasElement,cur_specy) {
     .attr("width", WIDTH)
     .attr("height", HEIGHT);
 
+
   g = svg.append("g");
 
   // Labels
@@ -87,14 +88,14 @@ function initChart(canvasElement,cur_specy) {
     // 此处是一个 axis
     // axisRight表示 刻度朝右
     // tickFormat是刻度上的文字
-    var yAxis = d3.axisRight(y).tickFormat((d) => d + "μg/m³");
+    //var yAxis = d3.axisRight(y).tickFormat((d) => d + "μg/m³");
   
     // 此处append g
     // 相当于 班级管理 分成一个个group
-    g.append("g")
-      .attr("class", "y axis") // class 类名
-      .attr("transform", "translate(10,200)") // 平移
-      .call(yAxis); // call yAxis 这是固定写法
+    //g.append("g")
+    //  .attr("class", "y axis") // class 类名
+    //  .attr("transform", "translate(10,200)") // 平移
+    //  .call(yAxis); // call yAxis 这是固定写法
   
   // Legend
   // 此处为了生成图例，准备渐变色(linearGradient)

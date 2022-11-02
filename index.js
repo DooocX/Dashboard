@@ -41,13 +41,9 @@ choroplethMap.initChart("#choroplethMap",cur_specy);
 // Datasets to load
 
   const dataPromises = [
-    //d3.csv("data/temp-1901-2020-all.csv"),
-    //d3.csv("data/PM-1901-2020-all.csv"),
     d3.csv("data/PM1.csv"),
     d3.csv("data/HadCRUT4.csv"),
-    //d3.json("data/world.geo.json"),
     d3.json("data/china.geo.json"),//数据改用"data/china.geo.json"中国省份地图数据
-    //d3.json("data/china.json"),
   ];
   
 // Load datasets and start visualization
@@ -69,8 +65,8 @@ Promise.all(dataPromises).then(function (data) {
   function updateCharts() {
     const yearData = tempData.get(String(year));
     const countryData = yearData.get(country);
-    polarArea.updateChart(countryData);
-    areaChart.updateChart(countryData);
+    polarArea.updateChart(countryData,cur_specy);
+    areaChart.updateChart(countryData,cur_specy);
     anomalyRadial.updateChart(anomalyData, year);
     choroplethMap.updateChart(topoData, yearData, month, cur_specy);
   }
