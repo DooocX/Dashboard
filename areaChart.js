@@ -35,7 +35,7 @@ function initChart(canvasElement) {
   xLabel = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", WIDTH / 2 )
+    .attr("x", WIDTH / 2 -50)
     .attr("y", HEIGHT + 70)
     .attr("font-size", "20px") // 字体大小
     .attr("text-anchor", "middle"); // 相关说明https://sg-info.cn/article/show/121
@@ -165,7 +165,7 @@ function updateChart(data, cur_specy) {
     .transition(trans)
     .attr("fill", "none")
     .attr("stroke", "#8d99ae")
-    .attr("stroke-width", 1.5)
+    .attr("stroke-width",1.5)
     .attr("stroke-linejoin", "round") // 折线的拐角 round 代表圆角
     .attr("stroke-linecap", "round") // lineCap lineCap属性设置或返回线条末端线帽的样式
     .attr("d", line);
