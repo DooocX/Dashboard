@@ -133,13 +133,12 @@ function updateChart(data, cur_specy) {
 
   // Line and area generator
   let curve = d3.curveMonotoneX;
-  /*
   const line = d3
     .line()
     .curve(curve)
     .x((d) => x(timeParser(d.Statistics.slice(0, 3))))
     .y((d) => y(d.Temperature));
-  */
+
 
   const line_1=d3
     .line()
@@ -156,7 +155,6 @@ function updateChart(data, cur_specy) {
     .y0(y(0)) //下边
     .y1((d) => y(cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0))))))); //上边
 */
-
   // Add y axis
   const yAxisCall = d3.axisLeft(y);
   yAxisGroup
@@ -176,22 +174,21 @@ function updateChart(data, cur_specy) {
     .transition(trans)
     .attr("fill", "none")
     .attr("stroke", "#8d99ae")
-    .attr("stroke-width","0.16em")
-    //.attr("stroke-linejoin", "round") // 折线的拐角 round 代表圆角
-    //.attr("stroke-linecap", "round") // lineCap lineCap属性设置或返回线条末端线帽的样式
-    .attr("d", line_1);
+    .attr("stroke-width",1.5)
+    .attr("stroke-linejoin", "round") // 折线的拐角 round 代表圆角
+    .attr("stroke-linecap", "round") // lineCap lineCap属性设置或返回线条末端线帽的样式
+    .attr("d", line);
 
-  //const areaPath = g.selectAll("path.plot").datum(data);  //datum data 相关说明 https://sg-info.cn/article/show/187
+  const areaPath = g.selectAll("path.plot").datum(data);  //datum data 相关说明 https://sg-info.cn/article/show/187
 
-  //areaPath.exit().remove();
-/*
+  areaPath.exit().remove();
+
   areaPath
     .merge(areaPath)
     .transition(trans)
     .attr("fill", "url(#temperature-gradient)")  // fill url 相关示例 https://sg-info.cn/article/show/149
     .attr("opacity", 0.8)
     .attr("d", area);
-    */
 }
 
 export {initChart, updateChart};
