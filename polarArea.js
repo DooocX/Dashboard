@@ -160,7 +160,7 @@ function updateChart(data,cur_specy) {
   const bars = g.selectAll("path").data(data);
 
   
-  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, cur_specy=="PM2.5"? 150:(cur_specy=="PM10"? 150:(cur_specy=="SO2" ? 150: (cur_specy=="NO2" ? 90:(cur_specy=="CO"? 4:(cur_specy=="O3"? 160:0)))))]);
+  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, cur_specy=="PM2.5"? 150:(cur_specy=="PM10"? 160:(cur_specy=="SO2" ? 90: (cur_specy=="NO2" ? 90:(cur_specy=="CO"? 4:(cur_specy=="O3"? 160:0)))))]);
 
   bars.exit().remove();
 

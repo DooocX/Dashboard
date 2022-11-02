@@ -30,8 +30,8 @@ const species = ["PM2.5","PM10","SO2","NO2","CO","O3"];
 
 // Init slider variables
 const slider = document.getElementById("yearSlider");
-slider.min = 2013;
-slider.max = 2016;
+slider.min = 0;
+slider.max = 49;
 
 // Init charts
 areaChart.initChart("#areaChart");
@@ -82,7 +82,7 @@ Promise.all(dataPromises).then(function (data) {
       year++;
     }
     if(year>lastYear)year=firstYear;
-    slider.value = year;
+    slider.value = (year-2013)*12+month;
     
     
     updateCharts();
@@ -95,7 +95,9 @@ Promise.all(dataPromises).then(function (data) {
     if (moving) {
       interval.stop();
     }
-    year = +slider.value;
+    year = 2013+(slider.value)/12;
+    month = (slider.value)%12;
+    month=month%12;
     updateCharts();
   });
   slider.addEventListener("pointerup", (event) => {
@@ -107,7 +109,8 @@ Promise.all(dataPromises).then(function (data) {
           year++;
         }
     if(year>lastYear)year=firstYear;
-        slider.value = year;
+        //slider.value = year;
+        slider.value = (year-2013)*12+month;
         updateCharts();
       }, 400);
     }
@@ -131,7 +134,8 @@ Promise.all(dataPromises).then(function (data) {
           year++;
         }
     if(year>lastYear)year=firstYear;
-        slider.value = year;
+    slider.value = (year-2013)*12+month;
+        //slider.value = year;
         updateCharts();
       }, 400);
       button.text("暂停");
@@ -161,7 +165,9 @@ Promise.all(dataPromises).then(function (data) {
   document.querySelectorAll("#year-list li").forEach((item) =>
     item.addEventListener("click", (event) => {
       year = +event.target.innerHTML;
-      slider.value = year;
+      //slider.value = year;
+      
+      slider.value = (year-2013)*12+month;
       updateCharts();
     })
   );
