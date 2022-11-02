@@ -5,10 +5,6 @@ const WIDTH = 1400;
 const HEIGHT = 800;
 
 let svg, g, path, projection, colorScale, speciestitle, title, tooltip, tipCountry, tipData;
-
-const w = 110,
-h = 300;
-let y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
 let hovered = false;
 const monthNames = [
   "January",
@@ -25,8 +21,16 @@ const monthNames = [
   "December",
 ];
 
-function drawRect()
-{
+function initChart(canvasElement,cur_specy) {
+  // Visualization canvas
+  svg = d3
+    .select(canvasElement)
+    .append("svg")
+    .attr("width", WIDTH)
+    .attr("height", HEIGHT);
+
+  g = svg.append("g");
+
   // Labels
   title = g
     .append("text")
@@ -43,6 +47,16 @@ function drawRect()
     .attr("y", HEIGHT - 50)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
+
+  // Map and projection
+  path = d3.geoPath();
+  projection = d3
+    .geoEqualEarth()
+    //更改世界地图的旋转角度、放大倍数以及中心位置，讲中国放在中间，且大小合适
+    .scale(900)
+    .rotate([-90, 0]) 
+    .center([20, 32]) 
+    .translate([WIDTH / 2, HEIGHT / 2]);
 
   // scale
   // domain 定义域
@@ -111,50 +125,25 @@ function drawRect()
     .attr("stop-color", "#5F9879")
     .attr("stop-opacity", 1);
 
-}
-
-function initChart(canvasElement,cur_specy) {
-  // Visualization canvas
-  svg = d3
-    .select(canvasElement)
-    .append("svg")
-    .attr("width", WIDTH)
-    .attr("height", HEIGHT);
-
-  g = svg.append("g");
-
-  // Map and projection
-  path = d3.geoPath();
-  projection = d3
-    .geoEqualEarth()
-    //更改世界地图的旋转角度、放大倍数以及中心位置，讲中国放在中间，且大小合适
-    .scale(900)
-    .rotate([-90, 0]) 
-    .center([20, 32]) 
-    .translate([WIDTH / 2, HEIGHT / 2]);
-
-  drawRect();
   
 }
 
 function updateChart(topo, data, month, cur_specy) {
   //这是一个动画 或者 渐变过程
-  d3.select("g").selectAll("*").remove();
-
   const trans = d3.transition().duration(100); // duration 表示这个过程要经历多久
  
   const currentYear = data.values().next().value[0].Year; // 此处是获取下一年
   title.text(`${monthNames[month]}, ${currentYear}`);
   speciestitle.text(`${cur_specy}`);
 
+  const w = 110,
+    h = 300;
   // 又一个scaleLinear
   // 注意此处range([h, 0])
   // 可以理解为 y = h - kx
   // 如果为range([0, h])
   // 则 y = kx
-
-
-  drawRect();
+  let y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
   if(cur_specy=="PM2.5"){let a=300.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
   if(cur_specy=="PM10"){let a=150.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
   if(cur_specy=="SO2"){let a=150.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
