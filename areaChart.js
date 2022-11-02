@@ -144,7 +144,7 @@ function updateChart(data, cur_specy) {
     .curve(curve)
     .x((d) => x(timeParser(d.Statistics.slice(0, 3)))) //x
     .y0(y(0)) //下边
-    .y1((d) => y(d.Temperature)); //上边
+    .y1((d) => y(cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0))))))); //上边
 
   // Add y axis
   const yAxisCall = d3.axisLeft(y);
