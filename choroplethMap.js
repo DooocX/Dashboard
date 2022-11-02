@@ -1,7 +1,7 @@
 //上图 地图
 
 // Plot constants
-const WIDTH = 1000;
+const WIDTH = 950;
 const HEIGHT = 800;
 
 let svg, g, path, projection, colorScale, speciestitle, title, tooltip, tipCountry, tipData;
