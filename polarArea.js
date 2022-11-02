@@ -209,7 +209,7 @@ function updateChart(data,cur_specy) {
         .arc() // imagine your doing a part of a donut plot
         .innerRadius(INNERRADIUS)   //内径
         .outerRadius(function (d) { //外径
-          return y(d.Temperature);
+          return y(cur_specy=="PM2.5"? d.Temperature:(cur_specy=="PM10"? d.PM10:(cur_specy=="SO2" ? d.SO2: (cur_specy=="NO2" ? d.NO2:(cur_specy=="CO"?d.CO:(cur_specy=="O3"? d.O3:0))))));
         })
         .startAngle(function (d) { //起始角度
           return x(d.Statistics.slice(0, 3));
