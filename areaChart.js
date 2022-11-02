@@ -88,15 +88,16 @@ function initChart(canvasElement) {
   gradient
     .selectAll("stop")
     .data([
-      {offset: "0%", color: "#5f9879"},
-      {offset: "16.7%", color: "#96b971"},
-      {offset: "61.7%", color: "#fdfd72"},
-      {offset: "75%", color: "#eceb73"},
-      {offset: "88.3%", color: "#d75454"},
-      {offset: "100%", color: "#B53838"},
-      //{offset: "0%", color: "#1788de"},
-      //{offset: "50%", color: "#3C81B7"},
-      //{offset: "70%", color: "#CE241C"},
+      //{offset: "0%", color: "#5f9879"},
+      //{offset: "11.7%", color: "#96b971"},
+      //{offset: "25%", color: "#fdfd72"},
+      //{offset: "38.3%", color: "#ECEB73"},
+
+      //{offset: "75%", color: "#D75454"},
+      //{offset: "100%", color: "#B53838"},
+      {offset: "0%", color: "#1788de"},
+      {offset: "50%", color: "#3C81B7"},
+      {offset: "70%", color: "#CE241C"},
     ])
     .enter()
     .append("stop")
@@ -150,7 +151,7 @@ function updateChart(data) {
   const yAxisCall = d3.axisLeft(y);
   yAxisGroup.call(yAxisCall);
 
-  gradient.attr("y1", y(-30)).attr("y2", y(35));
+  gradient.attr("y1", y(0)).attr("y2", y(300));
 
   const linePath = g.selectAll("path.plot").datum(data);
 

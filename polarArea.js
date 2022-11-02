@@ -57,13 +57,14 @@ function initChart(canvasElement) {
     .range([0, 2 * Math.PI])
     .align(0)
     .domain(monthNames);
-  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([-40, 35]);
+  y = d3.scaleLinear().range([INNERRADIUS, OUTERRADIUS]).domain([0, 300]);
 
   // Color scaleBand
   colorScale = d3
     .scaleSqrt()
-    .domain([-30, 0, 35])
-    .range(["#1788de", "#3C81B7", "#CE241C"]);
+    //.domain([-30, 0, 35])
+    .domain([ 0, 300])
+    .range(["#1788de",  "#CE241C"]);
 
   // Axes initialization
   // Y axis
