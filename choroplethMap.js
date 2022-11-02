@@ -70,6 +70,32 @@ function initChart(canvasElement,cur_specy) {
     .domain([ 0,35,75,115,250, 300])
     .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
 
+
+    const w = 110,
+    h = 300;
+    const y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
+    
+    
+    // append rect
+    // 注意此处fill 是上边准备的渐变色
+    g.append("rect")
+      .attr("width", w - 100)
+      .attr("height", h)
+      .style("fill", "url(#gradient)")
+      .attr("transform", "translate(0,200)");
+  
+    // 此处是一个 axis
+    // axisRight表示 刻度朝右
+    // tickFormat是刻度上的文字
+    var yAxis = d3.axisRight(y).tickFormat((d) => d + "μg/m³");
+  
+    // 此处append g
+    // 相当于 班级管理 分成一个个group
+    g.append("g")
+      .attr("class", "y axis") // class 类名
+      .attr("transform", "translate(10,200)") // 平移
+      .call(yAxis); // call yAxis 这是固定写法
+  
   // Legend
   // 此处为了生成图例，准备渐变色(linearGradient)
   // 相关示例 https://sg-info.cn/article/show/149
@@ -136,41 +162,12 @@ function updateChart(topo, data, month, cur_specy) {
   title.text(`${monthNames[month]}, ${currentYear}`);
   speciestitle.text(`${cur_specy}`);
 
-  const w = 110,
-    h = 300;
   // 又一个scaleLinear
   // 注意此处range([h, 0])
   // 可以理解为 y = h - kx
   // 如果为range([0, h])
   // 则 y = kx
-  let y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
-  if(cur_specy=="PM2.5"){let a=300.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
-  if(cur_specy=="PM10"){let a=150.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
-  if(cur_specy=="SO2"){let a=150.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
-  if(cur_specy=="NO2"){let a=200.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
-  if(cur_specy=="CO"){let a=10.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
-  if(cur_specy=="O3"){let a=160.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}  
   
-  // append rect
-  // 注意此处fill 是上边准备的渐变色
-  g.append("rect")
-    .attr("width", w - 100)
-    .attr("height", h)
-    .style("fill", "url(#gradient)")
-    .attr("transform", "translate(0,200)");
-
-  // 此处是一个 axis
-  // axisRight表示 刻度朝右
-  // tickFormat是刻度上的文字
-  var yAxis = d3.axisRight(y).tickFormat((d) => d + "μg/m³");
-
-  // 此处append g
-  // 相当于 班级管理 分成一个个group
-  g.append("g")
-    .attr("class", "y axis") // class 类名
-    .attr("transform", "translate(10,200)") // 平移
-    .call(yAxis); // call yAxis 这是固定写法
-
   // Tooltip placeholder
   tooltip = d3.select(".tooltip");
   
@@ -192,7 +189,6 @@ function updateChart(topo, data, month, cur_specy) {
     .attr("d", path.projection(projection))
     // set the color of each country
     .attr("fill", function (d) {
-      //d.total = data.get(d.properties["iso_b3"]);
       d.total = data.get(d.properties["filename"]);
 
       if (++month==12)month=0;
@@ -279,6 +275,8 @@ function updateChart(topo, data, month, cur_specy) {
       ? data.get(tipCountry)[month]
       : {Country: "No available data", Temperature: ""};
       if (++month==12)month=0;
+      
+      tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
       if(cur_specy=="PM10"){
         let a=150.0/300;
         colorScale = d3
@@ -320,7 +318,6 @@ function updateChart(topo, data, month, cur_specy) {
         .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
       return d.total ? colorScale(d.total[month].Temperature) : 300;
-    tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
   }
 }
 
