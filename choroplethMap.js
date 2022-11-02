@@ -1,5 +1,5 @@
 //上图 地图
-
+import * as polarArea from "./polarArea.js";
 // Plot constants
 const WIDTH = 950;
 const HEIGHT = 800;
@@ -270,6 +270,16 @@ function updateChart(topo, data, month, cur_specy) {
       // Tooltip
       tooltip.transition().duration(100).style("opacity", 0);
     });
+  choroMap
+    .on("mousedown", function(event,d){
+      hovered = false;
+      // Country highlighting
+      d3.selectAll(".Country").transition().duration(50).style("opacity", 1);
+      d3.select(this).transition().duration(50).style("stroke", "none");
+      // Tooltip
+      tooltip.transition().duration(100).style("opacity", 0);
+
+    })
   // Update tooltip data
   if (hovered) {
     tipData = tipCountry

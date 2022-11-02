@@ -48,7 +48,7 @@ function initChart(canvasElement) {
     .attr("font-size", "20px")
     .attr("text-anchor", "middle") //中间对齐
     .attr("transform", "rotate(-90)") // 旋转
-    .text("Temperature (K)"); //文字内容
+    .text("Temperature (℃)"); //文字内容
 
   // Scales
   const monthNames = [
