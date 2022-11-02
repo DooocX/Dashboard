@@ -36,7 +36,7 @@ slider.max = 2016;
 areaChart.initChart("#areaChart");
 polarArea.initChart("#polarArea");
 anomalyRadial.initChart("#anomalyRadial");
-choroplethMap.initChart("#choroplethMap");
+choroplethMap.initChart("#choroplethMap",cur_specy);
 
 // Datasets to load
 
@@ -48,7 +48,6 @@ choroplethMap.initChart("#choroplethMap");
     //d3.json("data/world.geo.json"),
     d3.json("data/china.geo.json"),//数据改用"data/china.geo.json"中国省份地图数据
     //d3.json("data/china.json"),
-    d3.csv("data/species.csv"),
   ];
   
 // Load datasets and start visualization

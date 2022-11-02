@@ -5,6 +5,10 @@ const WIDTH = 1400;
 const HEIGHT = 800;
 
 let svg, g, path, projection, colorScale, speciestitle, title, tooltip, tipCountry, tipData;
+
+const w = 110,
+h = 300;
+let y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
 let hovered = false;
 const monthNames = [
   "January",
@@ -21,16 +25,8 @@ const monthNames = [
   "December",
 ];
 
-function initChart(canvasElement) {
-  // Visualization canvas
-  svg = d3
-    .select(canvasElement)
-    .append("svg")
-    .attr("width", WIDTH)
-    .attr("height", HEIGHT);
-
-  g = svg.append("g");
-
+function drawRect()
+{
   // Labels
   title = g
     .append("text")
@@ -47,16 +43,6 @@ function initChart(canvasElement) {
     .attr("y", HEIGHT - 50)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
-
-  // Map and projection
-  path = d3.geoPath();
-  projection = d3
-    .geoEqualEarth()
-    //更改世界地图的旋转角度、放大倍数以及中心位置，讲中国放在中间，且大小合适
-    .scale(900)
-    .rotate([-90, 0]) 
-    .center([20, 32]) 
-    .translate([WIDTH / 2, HEIGHT / 2]);
 
   // scale
   // domain 定义域
@@ -125,14 +111,56 @@ function initChart(canvasElement) {
     .attr("stop-color", "#5F9879")
     .attr("stop-opacity", 1);
 
-  const w = 110,
-    h = 300;
+}
+
+function initChart(canvasElement,cur_specy) {
+  // Visualization canvas
+  svg = d3
+    .select(canvasElement)
+    .append("svg")
+    .attr("width", WIDTH)
+    .attr("height", HEIGHT);
+
+  g = svg.append("g");
+
+  // Map and projection
+  path = d3.geoPath();
+  projection = d3
+    .geoEqualEarth()
+    //更改世界地图的旋转角度、放大倍数以及中心位置，讲中国放在中间，且大小合适
+    .scale(900)
+    .rotate([-90, 0]) 
+    .center([20, 32]) 
+    .translate([WIDTH / 2, HEIGHT / 2]);
+
+  drawRect();
+  
+}
+
+function updateChart(topo, data, month, cur_specy) {
+  //这是一个动画 或者 渐变过程
+  d3.select("g").selectAll("*").remove();
+
+  const trans = d3.transition().duration(100); // duration 表示这个过程要经历多久
+ 
+  const currentYear = data.values().next().value[0].Year; // 此处是获取下一年
+  title.text(`${monthNames[month]}, ${currentYear}`);
+  speciestitle.text(`${cur_specy}`);
+
   // 又一个scaleLinear
   // 注意此处range([h, 0])
   // 可以理解为 y = h - kx
   // 如果为range([0, h])
   // 则 y = kx
-  const y = d3.scaleLinear().domain([0, 300]).range([h, 0]);
+
+
+  drawRect();
+  if(cur_specy=="PM2.5"){let a=300.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
+  if(cur_specy=="PM10"){let a=150.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
+  if(cur_specy=="SO2"){let a=150.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
+  if(cur_specy=="NO2"){let a=200.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
+  if(cur_specy=="CO"){let a=10.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}
+  if(cur_specy=="O3"){let a=160.0/300; y = d3.scaleLinear().domain([0, a*300]).range([h, 0]);}  
   
   // append rect
   // 注意此处fill 是上边准备的渐变色
@@ -156,16 +184,7 @@ function initChart(canvasElement) {
 
   // Tooltip placeholder
   tooltip = d3.select(".tooltip");
-}
-
-function updateChart(topo, data, month, cur_specy) {
-  //这是一个动画 或者 渐变过程
-  const trans = d3.transition().duration(100); // duration 表示这个过程要经历多久
- 
-  const currentYear = data.values().next().value[0].Year; // 此处是获取下一年
-  title.text(`${monthNames[month]}, ${currentYear}`);
-  speciestitle.text(`${cur_specy}`);
-
+  
   // Draw map
   // Join
   const choroMap = g.selectAll("path").data(topo.features);
@@ -196,33 +215,33 @@ function updateChart(topo, data, month, cur_specy) {
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
          return d.total ? colorScale(d.total[month].PM10) : 150;}
       if(cur_specy=="SO2"){
-        let a=110.0/300;
+        let a=150.0/300;
         colorScale = d3
         .scaleLinear()
         .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
-         return d.total ? colorScale(d.total[month].SO2) : 110;}
+         return d.total ? colorScale(d.total[month].SO2) : 150;}
       if(cur_specy=="NO2"){
-        let a=80.0/300;
+        let a=200.0/300;
         colorScale = d3
         .scaleLinear()
         .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
-         return d.total ? colorScale(d.total[month].NO2) : 80;}
+         return d.total ? colorScale(d.total[month].NO2) : 200;}
       if(cur_specy=="CO"){
-        let a=4.0/300;
+        let a=10.0/300;
         colorScale = d3
         .scaleLinear()
         .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
         .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
-        return d.total ? colorScale(d.total[month].CO)  : 4;}
+        return d.total ? colorScale(d.total[month].CO)  : 10;}
       if(cur_specy=="O3"){
-        let a=120.0/300;
+        let a=160.0/300;
       colorScale = d3
       .scaleLinear()
       .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
       .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
-       return d.total ? colorScale(d.total[month].O3) : 120;}
+       return d.total ? colorScale(d.total[month].O3) : 160;}
        let a=300.0/300;
         colorScale = d3
         .scaleLinear()
@@ -271,11 +290,46 @@ function updateChart(topo, data, month, cur_specy) {
       ? data.get(tipCountry)[month]
       : {Country: "No available data", Temperature: ""};
       if (++month==12)month=0;
-      if(cur_specy=="PM10"){ return d.total ? colorScale(d.total[month].PM10) : 150;}
-      if(cur_specy=="SO2"){ return d.total ? colorScale(d.total[month].SO2) : 110;}
-      if(cur_specy=="NO2"){ return d.total ? colorScale(d.total[month].NO2) : 80;}
-      if(cur_specy=="CO"){ return d.total ? colorScale(d.total[month].CO) : 4;}
-      if(cur_specy=="O3"){ return d.total ? colorScale(d.total[month].O3) : 120;}
+      if(cur_specy=="PM10"){
+        let a=150.0/300;
+        colorScale = d3
+        .scaleLinear()
+        .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
+        .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
+         return d.total ? colorScale(d.total[month].PM10) : 150;}
+      if(cur_specy=="SO2"){
+        let a=150.0/300;
+        colorScale = d3
+        .scaleLinear()
+        .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
+        .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
+         return d.total ? colorScale(d.total[month].SO2) : 150;}
+      if(cur_specy=="NO2"){
+        let a=200.0/300;
+        colorScale = d3
+        .scaleLinear()
+        .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
+        .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
+         return d.total ? colorScale(d.total[month].NO2) : 200;}
+      if(cur_specy=="CO"){
+        let a=10.0/300;
+        colorScale = d3
+        .scaleLinear()
+        .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
+        .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
+        return d.total ? colorScale(d.total[month].CO)  : 10;}
+      if(cur_specy=="O3"){
+        let a=160.0/300;
+      colorScale = d3
+      .scaleLinear()
+      .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
+      .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
+       return d.total ? colorScale(d.total[month].O3) : 160;}
+       let a=300.0/300;
+        colorScale = d3
+        .scaleLinear()
+        .domain([ 0,35*a ,75*a ,115*a ,250*a , 300*a])
+        .range(["#5F9879","#96B971","#FDFD72","#ECEB73","#D75454", "#B53838"]);
       return d.total ? colorScale(d.total[month].Temperature) : 300;
     tooltip.html(tipData.Country + "<br/>" + tipData.Temperature + "μg/m³");
   }
