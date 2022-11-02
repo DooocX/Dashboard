@@ -36,7 +36,7 @@ function initChart(canvasElement,cur_specy) {
   title = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", (WIDTH / 2) - 100)
+    .attr("x", (WIDTH / 2) - 30)
     .attr("y", HEIGHT - 100)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
@@ -44,7 +44,7 @@ function initChart(canvasElement,cur_specy) {
   speciestitle = g
     .append("text")
     .attr("class", "x-label")
-    .attr("x", (WIDTH / 2) - 100)
+    .attr("x", (WIDTH / 2) - 30)
     .attr("y", HEIGHT - 50)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle");
